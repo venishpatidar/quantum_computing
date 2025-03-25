@@ -44,7 +44,7 @@ class PennylaneIntro:
         qnode = qml.QNode(self.probability_circuit, dev)
         return qnode
 
-    def create_qnode_decorator(self) -> qml.QNode:
+    def create_qnode_decorated(self) -> qml.QNode:
         """ Use the device from the get_device function with a single qubit and create a QNode for the probability_circuit function
 
         Returns:
@@ -68,7 +68,7 @@ class IntermediateQubitSystems:
         Returns:
             qml.QNode: return the QNode object
         """
-        dev = qml.device(DEVICE, wires=0)  # Define a single qubit device here
+        dev = qml.device(DEVICE, wires=1)  # Define a single qubit device here
         @qml.qnode(dev)
         def qnode(bitstring:int):
             """ Implements a circuit which returns ket 0 if the number of 1's is even and ket 1 if the number of 1's is odd
@@ -92,7 +92,7 @@ class IntermediateQubitSystems:
         Returns:
             qml.QNode: return the QNode object
         """
-        dev = qml.device(DEVICE, wires=0)  # Define a single qubit device here
+        dev = qml.device(DEVICE, wires=1)  # Define a single qubit device here
         U = qml.math.eye(2)  # Replace with corect Unitary Matrix
         for gate in gates:
             U = gate(wires=0).matrix() @ U  # Apply matrix multiplication

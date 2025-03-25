@@ -10,10 +10,10 @@ class TestPennylaneIntro(unittest.TestCase):
         """Initialize PennylaneIntro instance before each test."""
         self.pl = PennylaneIntro()
         self.iqs = IntermediateQubitSystems()
-    
-    def test_create_qnode_decorator(self):
+                
+    def test_create_qnode_decorated(self):
         """Test if create_qnode_decorator returns a valid QNode"""
-        qnode = self.pl.create_qnode_decorator()
+        qnode = self.pl.create_qnode_decorated()
         self.assertIsInstance(qnode, qml.QNode)
         # Execute the QNode and check output
         result = qnode()
@@ -34,6 +34,7 @@ class TestPennylaneIntro(unittest.TestCase):
         """Test if the function returns a valid QNode and behaves correctly"""
         qnode = self.iqs.create_classically_controlled_circuit()
         self.assertIsInstance(qnode, qml.QNode)
+        self.assertEqual(len(qnode.device._wires), 1, "Circuit should use exactly 1 qubit")
 
         # Test with bitstrings
         even_parity_input = 1010  # Two 1's (even parity), should return [1, 0]
@@ -47,6 +48,10 @@ class TestPennylaneIntro(unittest.TestCase):
 
     def test_create_compliled_circuit(self):
         """Test if the function returns a valid QNode and behaves correctly"""
+        qnode = self.iqs.create_classically_controlled_circuit()
+        self.assertIsInstance(qnode, qml.QNode)
+        self.assertEqual(len(qnode.device._wires), 1, "Circuit should use exactly 1 qubit")
+
         # List of test gates
         gates_1 = [qml.Hadamard]
         gates_2 = [qml.PauliX, qml.PauliZ]
