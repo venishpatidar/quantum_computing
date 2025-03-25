@@ -1,0 +1,3 @@
+[tool.pyright]
+venvPath = "/Users/venish/Desktop/ASU/CSE_598_Quantum_Computing/Coding_1/Coding2-Template/"
+venv = "venv"
